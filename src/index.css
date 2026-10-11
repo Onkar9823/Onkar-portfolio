@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens (space-separated RGB so Tailwind opacity modifiers work) */
+:root {
+  --c-bg: 248 250 252;
+  --c-surface: 255 255 255;
+  --c-elevated: 241 245 249;
+  --c-line: 226 232 240;
+  --c-fg: 15 23 42;
+  --c-muted: 71 85 105;
+  --c-accent: 14 116 144;
+  --c-violet: 109 40 217;
+  --c-onaccent: 255 255 255;
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg: 11 15 25;
+  --c-surface: 17 24 39;
+  --c-elevated: 24 33 52;
+  --c-line: 38 50 72;
+  --c-fg: 241 245 249;
+  --c-muted: 148 163 184;
+  --c-accent: 34 211 238;
+  --c-violet: 167 139 250;
+  --c-onaccent: 11 15 25;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    overflow-x: hidden;
+  }
+
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  ::selection {
+    background: rgb(var(--c-accent) / 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-onaccent hover:bg-accent/90;
+  }
+
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-fg hover:border-accent/60 hover:text-accent;
+  }
+
+  .btn-disabled {
+    @apply btn cursor-not-allowed border border-dashed border-line bg-transparent text-muted;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-elevated px-3 py-1 text-xs font-medium text-fg;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent;
+  }
+
+  .gradient-text {
+    background-image: linear-gradient(90deg, rgb(var(--c-accent)), rgb(var(--c-violet)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Subtle dotted grid used as a data-inspired background */
+.bg-dots {
+  background-image: radial-gradient(rgb(var(--c-fg) / 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+}
+
+/* Modal entrance (disabled automatically for reduced motion by the rule at the bottom) */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+dialog.modal[open] {
+  animation: modal-in 0.22s ease-out;
+}
+dialog.modal[open]::backdrop {
+  animation: backdrop-in 0.22s ease-out;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+.pulse-dot {
+  animation: soft-pulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pulse-dot {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

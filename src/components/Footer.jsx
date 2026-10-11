@@ -9,6 +9,7 @@ export default function Footer() {
         <div>
           <p className="font-semibold text-fg">{profile.name}</p>
           <p className="mt-1 text-sm text-muted">{profile.tagline}</p>
+          <h1 className="mt-2 text-lg font-bold text-fg">{profile.name} : YOU CAN REPLICATE THE DESIGN, NEVER THE DEVELOPER.</h1>
         </div>
         <SocialLinks withEmail />
       </div>

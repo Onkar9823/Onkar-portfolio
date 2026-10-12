@@ -8,6 +8,11 @@ export const skillGroups = [
     skills: ['Python', 'SQL'],
   },
   {
+    title: 'Machine Learning & AI',
+    icon: 'ml',
+    skills: ['Scikit-learn','TensorFlow','Machine Learning','Deep Learning','NLP'],
+  },
+  {
     title: 'Data Analysis',
     icon: 'analysis',
     skills: ['Pandas', 'NumPy', 'Data Cleaning', 'Data Manipulation', 'Exploratory Data Analysis (EDA)', 'Microsoft Excel'],
